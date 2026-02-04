@@ -2,13 +2,15 @@
 <html lang="pt">
 <head>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS Ildebranda</title>
-
   <script src="https://unpkg.com/decap-cms@^3.10.0/dist/decap-cms.js"></script>
+</head>
+<body>
+  <div id="nc-root"></div>
 
   <script>
-    window.CMS_MANUAL_INIT = true;
-
+    // 1. Definimos a configuração global ANTES do init
     window.CMS_CONFIG = {
       backend: {
         name: "github",
@@ -17,9 +19,10 @@
         base_url: "https://decap-cms-oauth-gh.vercel.app",
         auth_endpoint: "auth"
       },
+      load_config_file: false, // OBRIGATÓRIO: impede a busca pelo config.yml
+      display_url: "https://cms-admin-navy.vercel.app",
       media_folder: "public/uploads",
       public_folder: "/uploads",
-
       collections: [
         {
           name: "obras",
@@ -64,8 +67,15 @@
       ]
     };
 
-    CMS.init();
+    // 2. Inicializamos apenas quando o script externo carregar
+    // e o DOM estiver pronto
+    window.onload = () => {
+      if (window.CMS) {
+        window.CMS.init({ config: window.CMS_CONFIG });
+      } else {
+        console.error("Decap CMS não pôde ser carregado.");
+      }
+    };
   </script>
-</head>
-<body></body>
+</body>
 </html>
