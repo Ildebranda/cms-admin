@@ -1,74 +1,89 @@
 <!doctype html>
 <html lang="pt">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CMS Ildebranda</title>
-  <script>
-    window.CMS_MANUAL_INIT = true;
-  </script>
-  <script src="https://unpkg.com/decap-cms@^3.10.0/dist/decap-cms.js"></script>
-</head>
-<body>
-  <script>
-    // 3. Configuração
-    const config = {
-      backend: {
-        name: "github",
-        repo: "Ildebranda/site-ildebranda",
-        branch: "master",
-        base_url: "https://cms-admin-navy.vercel.app",
-        auth_endpoint: "api/auth"
-      },
-      load_config_file: false, // Importante para parar o erro 404
-      media_folder: "public/uploads",
-      public_folder: "/uploads",
-      collections: [
-        {
-          name: "obras",
-          label: "Obras",
-          folder: "content/obras",
-          create: true,
-          slug: "{{slug}}",
-          format: "frontmatter",
-          fields: [
-            { label: "ID", name: "id", widget: "string" },
-            { label: "Título", name: "titulo", widget: "string" },
-            { label: "Categoria", name: "categoria", widget: "select", options: ["Traditional","Digital"] },
-            { label: "Imagem", name: "img", widget: "image" },
-            { label: "Descrição", name: "descricao", widget: "markdown" }
-          ]
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS Ildebranda</title>
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    <script src="https://unpkg.com/decap-cms@^3.10.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <script>
+      // 3. Configuração
+      const config = {
+        backend: {
+          name: "github",
+          repo: "Ildebranda/site-ildebranda",
+          branch: "master",
+          base_url: "https://cms-admin-navy.vercel.app",
+          auth_endpoint: "api/auth",
         },
-        {
-          name: "noticias",
-          label: "Notícias",
-          folder: "content/blog",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { label: "Título", name: "title", widget: "string" },
-            { label: "Data", name: "date", widget: "datetime" },
-            { label: "Conteúdo", name: "body", widget: "markdown" }
-          ]
-        },
-        {
-          name: "exposicoes",
-          label: "Exposições",
-          folder: "content/exposicoes",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { label: "Título", name: "title", widget: "string" },
-            { label: "Data", name: "date", widget: "datetime" },
-            { label: "Local", name: "location", widget: "string" },
-            { label: "Descrição", name: "body", widget: "markdown" }
-          ]
-        }
-      ]
-    };
+        load_config_file: false, // Importante para parar o erro 404
+        media_folder: "public/uploads",
+        public_folder: "/uploads",
+        collections: [
+          {
+            name: "obras",
+            label: "Obras",
+            folder: "content/obras",
+            create: true,
+            slug: "{{slug}}",
+            format: "frontmatter",
+            fields: [
+              { label: "ID", name: "id", widget: "string" },
+              { label: "Título", name: "title", widget: "string" },
+              {
+                label: "Categoria",
+                name: "category",
+                widget: "select",
+                options: ["Traditional", "Digital"],
+              },
+              { label: "Imagem", name: "image", widget: "image" },
+              { label: "Descrição", name: "description", widget: "markdown" },
+            ],
+          },
+          {
+            name: "exposicoes",
+            label: "Exposições",
+            folder: "content/exposicoes",
+            create: true,
+            slug: "{{slug}}",
+            format: "frontmatter",
+            fields: [
+              { label: "Título", name: "title", widget: "string" },
+              {
+                label: "Categoria",
+                name: "category",
+                widget: "string",
+                default: "Individual",
+              },
+              { label: "Ano", name: "year", widget: "string" },
+              { label: "Local", name: "location", widget: "string" },
+              { label: "Imagem", name: "image", widget: "image" },
+              { label: "Corpo do Texto", name: "body", widget: "markdown" },
+            ],
+          },
+          {
+            name: "noticias",
+            label: "Notícias",
+            folder: "content/blog",
+            create: true,
+            slug: "{{slug}}",
+            format: "frontmatter",
+            fields: [
+              { label: "Título", name: "title", widget: "string" },
+              { label: "Data", name: "date", widget: "datetime" },
+              { label: "Imagem", name: "image", widget: "image" },
+              { label: "Conteúdo", name: "body", widget: "markdown" },
+            ],
+          },
+        ],
+      };
 
-    // 4. Inicialização forçada após o carregamento
-    CMS.init({ config });
-  </script>
-</body>
+      // 4. Inicialização forçada após o carregamento
+      CMS.init({ config });
+    </script>
+  </body>
 </html>
