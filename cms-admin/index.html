@@ -56,7 +56,11 @@
               {
                 label: "Categoria",
                 name: "category",
-                widget: "string",
+                widget: "select",
+                options: [
+                  { label: "Individual", value: "Individual" },
+                  { label: "Grupo", value: "Grupo" },
+                ],
                 default: "Individual",
               },
               { label: "Ano", name: "year", widget: "string" },
